@@ -15,7 +15,7 @@ app.post('/login', login);
 
 app.use('/users', userController);
 
-app.listen(1342, async () => {
+app.listen(process.env.PORT || 1342, async () => {
     try{
         await connect();
         console.log('Listening on Port 1342');
