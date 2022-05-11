@@ -29,6 +29,15 @@ Route.get("", async(req, res) => {
         res.status(500).send('err', err.message)
     }
 })
+Route.get("/:id", async(req, res) => {
+    try{
+        const user = await User.findById().lean().exec()
+        res.status(200).send(user)
+    }
+    catch(err){
+        res.status(500).send('err', err.message)
+    }
+})
 
 Route.patch("/:id",async(req,res)=>{
     try{
