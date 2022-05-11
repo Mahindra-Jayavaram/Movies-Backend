@@ -28,6 +28,8 @@ userSchema.pre("save", function (next) {
     return bcrypt.compareSync(password, this.password);
   };
   
+
+  
   const User = mongoose.model("user", userSchema); // user => users
   
   module.exports = User;
