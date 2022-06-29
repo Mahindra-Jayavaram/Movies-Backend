@@ -1,4 +1,5 @@
 const express = require("express");
+const middleware = require("../middlewares/authenticate")
 const Movie = require("../models/movies.model");
 
 const route= express();
@@ -37,7 +38,7 @@ route.get("/:id",async(req,res)=>{
   }
 })
 
-route.patch("/:id",async(req,res)=>{
+route.patch("/:id",middleware,async(req,res)=>{
     try{
         const movie = await Movie.findByIdAndUpdate(req.params.id,req.body,{new:true,}).lean().exec();
         return res.status(201).send(movie);
@@ -46,7 +47,7 @@ route.patch("/:id",async(req,res)=>{
         return res.status(500).send(e.message)
     }
 })
-route.delete("/:id",async(req,res)=>{
+route.delete("/:id",middleware,async(req,res)=>{
     try{
         const movie = await Movie.findByIdAndDelete(req.params.id).lean().exec();
         return res.status(201).send(movie);
